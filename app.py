@@ -44,17 +44,24 @@ with col1:
 pie_data = df['Product'].value_counts().head(5)
 
 fig2, ax2 = plt.subplots()
-ax2.pie(pie_data, autopct='%1.1f%%')
-ax2.legend(pie_data.index)
-st.pyplot(fig2)
 
-# Line Chart
-st.subheader("📈 Price Trend")
-fig3, ax3 = plt.subplots()
-ax3.plot(filtered_df['Old Price'].values, label='Old Price')
-ax3.plot(filtered_df['Special Price'].values, label='Special Price')
-ax3.legend()
-st.pyplot(fig3)
+# Pie without labels
+wedges, texts, autotexts = ax2.pie(
+    pie_data,
+    autopct='%1.1f%%',
+    startangle=90
+)
+
+# Legend outside (clean look)
+ax2.legend(
+    wedges,
+    pie_data.index,
+    title="Products",
+    loc="center left",
+    bbox_to_anchor=(1, 0, 0.5, 1)
+)
+
+st.pyplot(fig2)
 
 # Histogram
 st.subheader("📉 Discount Distribution")
