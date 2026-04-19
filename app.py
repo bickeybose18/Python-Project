@@ -1,15 +1,26 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+import plotly.express as px
 
 # Page config
 st.set_page_config(page_title="Advanced Dashboard", layout="wide")
 
-st.title("🛍️ Product Pricing Dashboard")
+# Dark UI
+st.markdown("""
+<style>
+.main {
+    background-color: #0e1117;
+    color: white;
+}
+</style>
+""", unsafe_allow_html=True)
 
-# Load data
-df = pd.read_csv("Sports_ECommerce_Products_Data.csv")
+# Title
+st.title("🛍️ Product Pricing Dashboard")
+st.markdown("### 📊 Interactive Data Visualization using Python")
+
+# Load Data
+df = pd.read_csv("Data/Data.csv")
 
 # Data Cleaning
 df['Old Price'] = pd.to_numeric(df['Old Price'], errors='coerce')
@@ -31,45 +42,64 @@ col1.metric("Avg Old Price", int(filtered_df['Old Price'].mean()))
 col2.metric("Avg Special Price", int(filtered_df['Special Price'].mean()))
 col3.metric("Max Discount (%)", int(filtered_df['Discount %'].max()))
 
-# Layout
-col1, col2 = st.columns(2)
+# ------------------ Charts ------------------
 
 # Bar Chart
-with col1:
-    st.subheader("💸 Price Comparison")
-    fig, ax = plt.subplots()
-    filtered_df[['Old Price', 'Special Price']].head(10).plot(kind='bar', ax=ax)
-    st.pyplot(fig)
+st.subheader("💸 Price Comparison")
 
-pie_data = df['Product'].value_counts().head(5)
+fig1 = px.bar(
+    filtered_df.head(10),
+    x='Product Name',
+    y=['Old Price', 'Special Price'],
+    barmode='group',
+    title="Price Comparison",
+)
 
-fig2, ax2 = plt.subplots()
+st.plotly_chart(fig1, use_container_width=True)
 
-# Pie without labels
-wedges, texts, autotexts = ax2.pie(
+# Pie Chart
+st.subheader("🥧 Product Distribution")
+
+pie_data = df['Product'].value_counts().head(5).reset_index()
+pie_data.columns = ['Product', 'Count']
+
+fig2 = px.pie(
     pie_data,
-    autopct='%1.1f%%',
-    startangle=90
+    names='Product',
+    values='Count',
+    title="Top 5 Product Categories",
 )
 
-# Legend outside (clean look)
-ax2.legend(
-    wedges,
-    pie_data.index,
-    title="Products",
-    loc="center left",
-    bbox_to_anchor=(1, 0, 0.5, 1)
+st.plotly_chart(fig2, use_container_width=True)
+
+# Line Chart
+st.subheader("📈 Price Trend")
+
+fig3 = px.line(
+    filtered_df.head(10),
+    y=['Old Price', 'Special Price'],
+    title="Price Trend",
 )
 
-st.pyplot(fig2)
+st.plotly_chart(fig3, use_container_width=True)
 
 # Histogram
 st.subheader("📉 Discount Distribution")
-fig4, ax4 = plt.subplots()
-sns.histplot(df['Discount %'], bins=10, ax=ax4)
-st.pyplot(fig4)
+
+fig4 = px.histogram(
+    df,
+    x='Discount %',
+    nbins=10,
+    title="Discount Distribution",
+)
+
+st.plotly_chart(fig4, use_container_width=True)
 
 # Top Products
 st.subheader("🔥 Top Discounted Products")
+
 top_products = df.sort_values(by='Discount %', ascending=False).head(10)
-st.write(top_products[['Product Name', 'Discount %']])
+st.dataframe(top_products[['Product Name', 'Discount %']])
+
+# Success Message
+st.success("✅ Dashboard Successfully Deployed & Fully Interactive")
