@@ -111,14 +111,14 @@ with col1:
     st.markdown("""
     ### 👨‍💻 Project By  
     
-    Bikas Kumar
-    Anand Kumar
-    Rajan Kumar singh
+    Bikas Kumar \n
+    Anand Kumar \n
+    Rajan Kumar singh \n
     
     """)
 
 with col2:
     st.markdown("""
     ### 👨‍🏫 Guide By  
-    **Dr. XYZ**
+    **Mr. Harendra Kumar**
     """)
