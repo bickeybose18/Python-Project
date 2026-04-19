@@ -105,3 +105,4 @@ st.dataframe(top_products[['Product Name', 'Discount %']])
 
 # Success Message
 st.success("✅ Dashboard Successfully Deployed & Fully Interactive")
+st.subheader("Project By")
