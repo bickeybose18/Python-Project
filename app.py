@@ -110,7 +110,11 @@ col1, col2 = st.columns(2)
 with col1:
     st.markdown("""
     ### 👨‍💻 Project By  
-    **Bickey Bose**
+    **
+    Bikas Kumar
+    Anand Kumar
+    Rajan Kumar singh
+    **
     """)
 
 with col2:
