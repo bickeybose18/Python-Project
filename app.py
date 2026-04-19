@@ -20,7 +20,7 @@ st.title("🛍️ Product Pricing Dashboard")
 st.markdown("### 📊 Interactive Data Visualization using Python")
 
 # Load Data
-df = pd.read_csv("Data/Data.csv")
+df = pd.read_csv("Sports_ECommerce_Products_Data.csv")
 
 # Data Cleaning
 df['Old Price'] = pd.to_numeric(df['Old Price'], errors='coerce')
