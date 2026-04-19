@@ -4,6 +4,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 st.image("images.png", width=120)
+st.header("Centurion University Technology And Management")
 # Page config
 st.set_page_config(page_title="Advanced Dashboard", layout="wide")
 
