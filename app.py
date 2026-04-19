@@ -1,4 +1,4 @@
-st.image("logo.svg", width=120)
+st.image("images.png", width=120)
 
 import streamlit as st
 import pandas as pd
