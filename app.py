@@ -41,13 +41,12 @@ with col1:
     filtered_df[['Old Price', 'Special Price']].head(10).plot(kind='bar', ax=ax)
     st.pyplot(fig)
 
-# Pie Chart
-with col2:
-    st.subheader("🥧 Product Distribution")
-    pie_data = df['Product'].value_counts()
-    fig2, ax2 = plt.subplots()
-    ax2.pie(pie_data, labels=pie_data.index, autopct='%1.1f%%')
-    st.pyplot(fig2)
+pie_data = df['Product'].value_counts().head(5)
+
+fig2, ax2 = plt.subplots()
+ax2.pie(pie_data, autopct='%1.1f%%')
+ax2.legend(pie_data.index)
+st.pyplot(fig2)
 
 # Line Chart
 st.subheader("📈 Price Trend")
